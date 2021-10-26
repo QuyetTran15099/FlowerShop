@@ -15,7 +15,28 @@ function ready() {
 		var button = addToCartButtons[i];
 		button.addEventListener("click", addToCartClicked);
 	}
+	document
+		.getElementsByClassName("btn--checkout")[0]
+		.addEventListener("click", purchaseClicked);
 	updateCartTotal();
+}
+var quantityInputs = document.getElementsByClassName("cart-quantity-input");
+for (var i = 0; i < quantityInputs.length; i++) {
+	var input = quantityInputs[i];
+	input.addEventListener("change", quantityChanged);
+}
+function purchaseClicked() {
+	var cartRows = document.getElementsByClassName("cart__row");
+	var cartBodys = document.getElementsByClassName("cart__body")[0];
+	if (cartRows.length == 0) {
+		alert("No item");
+	} else if (cartRows.length > 0) {
+		alert("Thank you for your purchase");
+		while (cartBodys.hasChildNodes()) {
+			cartBodys.removeChild(cartBodys.firstChild);
+		}
+		updateCartTotal();
+	}
 }
 function addToCartClicked(event) {
 	var button = event.target;
@@ -37,6 +58,13 @@ function addToCartClicked(event) {
 	const price = priceItem.innerText;
 
 	addItemToCart(discount, title, imgSrc, price);
+	updateCartTotal();
+}
+function quantityChanged(event) {
+	var input = event.target;
+	if (isNaN(input.value) || input.value <= 0) {
+		input.value = 1;
+	}
 	updateCartTotal();
 }
 function addItemToCart(discount, title, imgSrc, price) {
@@ -62,6 +90,9 @@ function addItemToCart(discount, title, imgSrc, price) {
 	cartRow
 		.getElementsByClassName("btn-danger")[0]
 		.addEventListener("click", removeCartItem);
+	cartRow
+		.getElementsByClassName("cart-quantity-input")[0]
+		.addEventListener("change", quantityChanged);
 }
 
 function removeCartItem(event) {
@@ -94,14 +125,17 @@ function updateCartTotal() {
 		const quantity = quantityElement.value;
 		total = total + price * quantity;
 		const totalPrice = total;
-		console.log("total price :", totalPrice);
+		// console.log("total price :", totalPrice);
 		discount = discountPercent;
-		console.log("% discount:", discount);
+		// console.log("% discount:", discount);
 		const totalDiscount = discount;
 		const priceDiscount = (totalDiscount * totalPrice) / 100;
-		console.log("price discount:", priceDiscount);
+		// console.log("price discount:", priceDiscount);
 		var priceAfterDiscount = totalPrice - priceDiscount;
-		console.log("price after discount:", priceAfterDiscount);
+		// console.log("price after discount:", priceAfterDiscount);
+	}
+	if (isNaN(priceAfterDiscount)) {
+		priceAfterDiscount = 0;
 	}
 	priceAfterDiscount = Math.round(priceAfterDiscount * 100) / 100;
 	document.getElementsByClassName("cart__total-price")[0].innerText =

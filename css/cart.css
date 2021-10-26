@@ -3,11 +3,23 @@
     z-index: 100000;
     position:absolute;
     right: 0;
-    transform: translate(-50px,40px);
+    transform: translate(-50px,20px);
     height:70vh;
     border-radius:10px;
     min-width: 350px;
-    
+    display:none;
+}
+.cart::after{
+    content: "";
+    position:absolute;
+    right: 78px;top: -40px;
+    border-width: 20px;
+    border-style: solid;
+    border-color:transparent transparent #ECEFF1 transparent;
+    cursor: pointer;
+}
+.header__cart,a:hover,.cart{
+    display:block
 }
 .cart__header{
     text-align: center;
@@ -38,6 +50,7 @@
     font-size: 1.4rem;
 
 }
+
 .cart__img, img{
     height: 12rem;
     width:0 auto;

@@ -47,7 +47,7 @@ section{
     cursor: pointer;
     font-size: 1.7rem;
 }
-
+button{cursor: pointer;}
 .btn:hover{
     background:var(--pink);
 }
@@ -84,10 +84,14 @@ header .navbar a:hover{
     color:var(--pink);
 }
 
-header .icons a{
+header .icons a ,i{
     font-size: 2.5rem;
     color:#333;
     margin-left: 2rem;
+}
+.header__cart i .cart-icons:hover{
+   color:#e84393;
+   cursor: pointer;
 }
 header .icon{
     display: flex;
@@ -274,7 +278,9 @@ header .fa-bars{
 
 .products .box-container .box .image .icons{
     position: absolute;
-    bottom:-7rem; left:0; right:0;
+    bottom:-7rem;
+     left:0; 
+     right:0;
     display: flex;
 }
 
